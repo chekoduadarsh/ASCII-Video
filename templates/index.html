@@ -1,0 +1,44 @@
+<html>
+    <head>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+    </head>
+    <body>
+        <input type="text" id="encode_input" name="einput"><br><br>
+        <input type="file" id="input_img" name="img" class="input_img" accept="image/*">
+        <button class='get_result', onclick=get_result()>Calculate</button>
+        <div class='result'>{{encoded_img}}</div>
+
+        <script>
+             function get_result(){
+                 var val1 = $("#encode_input").val();
+                 var val2 = $("#input_img").val();
+
+                 document.querySelectorAll(".input_img").forEach((inputElement) => {
+
+                    if (inputElement.files && inputElement.files[0]) {
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            val2 = e.target.result;
+                        
+                            $.ajax({
+                                url: "/calculate_result",
+                                type: "get",
+                                data: {'val1': val1, 'val2': val2},
+                                success: function(response) {
+                                    $(".result").html('<p>'+response.result.toString()+'</p>');
+                            },
+                            });
+                                        
+                        };
+                        reader.readAsDataURL(inputElement.files[0]);
+                    }
+                });
+
+
+                }
+         </script>
+
+    </body>
+</html>
