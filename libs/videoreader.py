@@ -27,7 +27,7 @@ def encode_frame(frame, size = (48,48), density_encoder_string =""):
                 gray_image[y, x] = 255
             if gray_image[y, x] < 0:
                 gray_image[y, x] = 0
-            encode_str += density_encoder_string[math.floor(translate(gray_image[y, x], 0, 255, len(density_encoder_string), 0))]
+            encode_str += density_encoder_string[math.floor(translate(gray_image[y, x], 0, 255, len(density_encoder_string)-1, 0))]
         encode_str += "</br>"
     
     encode_str = encode_str.replace(" ", "&nbsp;")
