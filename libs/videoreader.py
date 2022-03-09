@@ -36,3 +36,9 @@ def encode_frame(frame, size = (48,48), density_encoder_string =""):
 
 def base64_to_numpy_image(base64_img):
     return np.array(Image.open(BytesIO(base64.b64decode(base64_img))))
+
+
+def pil_image_to_base64(pil_image):
+    buf = BytesIO()
+    pil_image.save(buf, format="JPEG")
+    return base64.b64encode(buf.getvalue())

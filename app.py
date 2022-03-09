@@ -10,10 +10,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 app.config['DEBUG'] = True
 
-#density_encoder_string = "Ñ@#W$9876543210?!abc;:+=-,._             "
-#density_encoder_string = '       .:-i|=+%O#@'
-#density_encoder_string = '█▓▒░:.        '
-#density_encoder_string= "01 "
 
 image = cv2.imread('lenna.jpeg')
 
