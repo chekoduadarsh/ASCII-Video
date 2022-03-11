@@ -15,9 +15,12 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
 
 
 
-def encode_frame(frame, size = (48,48), density_encoder_string =""):
+def encode_frame(frame, size = (512,512), density_encoder_string =""):
     gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray_image = cv2.resize(gray_image, size, interpolation= cv2.INTER_LINEAR)
+    
+    frame = cv2.resize(frame, size, interpolation= cv2.INTER_LINEAR)
+
     encode_str = ""
     h = gray_image.shape[0]
     w = gray_image.shape[1] 
@@ -27,10 +30,10 @@ def encode_frame(frame, size = (48,48), density_encoder_string =""):
                 gray_image[y, x] = 255
             if gray_image[y, x] < 0:
                 gray_image[y, x] = 0
-            encode_str += density_encoder_string[math.floor(translate(gray_image[y, x], 0, 255, len(density_encoder_string)-1, 0))]
+            encode_str += "<p style='display:inline;color:#"+rgb_to_hex((int(frame[y, x][0]), int(frame[y, x][1]), int(frame[y, x][2])))+"'>"+density_encoder_string[math.floor(translate(gray_image[y, x], 0, 255, len(density_encoder_string)-1, 0))].replace(" ", "&nbsp;")+"</p>"
         encode_str += "</br>"
     
-    encode_str = encode_str.replace(" ", "&nbsp;")
+    print(encode_str)
     return encode_str
         
 
@@ -42,3 +45,6 @@ def pil_image_to_base64(pil_image):
     buf = BytesIO()
     pil_image.save(buf, format="JPEG")
     return base64.b64encode(buf.getvalue())
+
+def rgb_to_hex(rgb):
+    return '%02x%02x%02x' % rgb
