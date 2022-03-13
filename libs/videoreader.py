@@ -18,9 +18,8 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
 def encode_frame(frame, size, density_encoder_string =""):
     gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
     gray_image = cv2.resize(gray_image, size, interpolation= cv2.INTER_LINEAR)
-    height = gray_image.shape[0] # keep original height
-    dim = (size, height)
-    frame = cv2.resize(frame, dim, interpolation= cv2.INTER_LINEAR)
+    
+    frame = cv2.resize(frame, size, interpolation= cv2.INTER_LINEAR)
 
     encode_str = ""
     h = gray_image.shape[0]
