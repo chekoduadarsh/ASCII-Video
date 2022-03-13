@@ -25,4 +25,4 @@ def calculate_result():
   return jsonify({"result":encode_frame(base64_to_numpy_image(base64_img),size=(image_size,image_size) ,density_encoder_string=density_encoder_string)})
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0')
+    app.run()
