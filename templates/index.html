@@ -18,6 +18,7 @@
         <label for="exampleInputEmail1">Encoder ASCII String</label>
         <input class="form-control form-control-lg" type="text" id="encode_input" name="einput" value="            _.,-=+:;cba!?0123456789$W#@Ñ"><br><br>
 
+        <input class="form-control form-control-lg" type="text" id="input_img_size" name="einput" value="128"><br><br>
         </br>
         <div class="file_div">
             <input type="file"  class="btn btn-secondary input_img" id="input_img" name="img" accept="image/*">
@@ -46,6 +47,7 @@
         <script>
              function get_result(){
                  var val1 = $("#encode_input").val();
+                 var val3 = $("#input_img_size").val();
                  var val2 = $("#input_img").val();
 
                  document.querySelectorAll(".input_img").forEach((inputElement) => {
@@ -58,7 +60,7 @@
                             $.ajax({
                                 url: "/calculate_result",
                                 type: "get",
-                                data: {'val1': val1, 'val2': val2},
+                                data: {'val1': val1, 'val2': val2, 'val3':val3},
                                 success: function(response) {
                                     $(".result").html('<p>'+response.result.toString()+'</p>');
                                     $(".result_raw").html('<img src="'+val2+'">');

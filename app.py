@@ -21,7 +21,8 @@ def root():
 def calculate_result():
   density_encoder_string = str(request.args.get('val1'))
   base64_img = str(request.args.get('val2')).split(",")[1]
-  return jsonify({"result":encode_frame(base64_to_numpy_image(base64_img),(48,48) ,density_encoder_string)})
+  image_size = int(request.args.get('val3'))
+  return jsonify({"result":encode_frame(base64_to_numpy_image(base64_img),size=(image_size,image_size) ,density_encoder_string=density_encoder_string)})
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
