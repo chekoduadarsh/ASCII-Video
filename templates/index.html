@@ -1,81 +1,101 @@
 <html>
-    <head>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><!-- CSS only -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-                
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
-        <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
-    </head>
-    <body>
-        <nav class="navbar navbar-dark bg-dark">
-            <a class="navbar-brand" href="#">ASCII VIDEO</a>
-            <img src="{{url_for('static', filename='media/settings-4-64.png')}}" width="24" height="24">
-        </nav>
-        </br>
-        </br>
-        <label for="exampleInputEmail1">Encoder ASCII String</label>
-        <input class="form-control form-control-lg" type="text" id="encode_input" name="einput" value="            _.,-=+:;cba!?0123456789$W#@Ñ"><br><br>
+<head>
 
-        <input class="form-control form-control-lg" type="text" id="input_img_size" name="einput" value="128"><br><br>
-        </br>
-        <div class="file_div">
-            <input type="file"  class="btn btn-secondary input_img" id="input_img" name="img" accept="image/*">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}" />
+</head>
+
+<body>
+    <nav class="navbar navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">ASCII VIDEO</a>
+        <img src="{{url_for('static', filename='media/settings-4-64.png')}}" width="24" height="24">
+    </nav>
+    </br>
+    </br>
+
+    <form>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label form-key-label">Encoder ASCII String</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control form-control-lg" id="encode_input"
+                    value="            _.,-=+:;cba!?0123456789$W#@Ñ">
+            </div>
         </div>
-
-        <div class="webcam_div">
-            <button type="button" class="btn btn-primary btn-lg" > 📷 Webcam</button>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label form-key-label">Number of columns</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control form-control-lg" id="input_img_size" value="128">
+            </div>
         </div>
-        </br>   
-        </br>
-        </br>
-        </br>
-        </br>
-        <div class="Generate">
-            <button type="button" class="btn btn-primary btn-lg" onclick="get_result()" >Generate</button>
         </div>
-        </br>   
-        </br>
-        </br>
-        </br>
-        </br>
-        <div class="results">
-            <div class='result_raw'>{{raw_image}}</div>
-            <div class='result'>{{encoded_img}}</div>
-        </div>
-        <script>
-             function get_result(){
-                 var val1 = $("#encode_input").val();
-                 var val3 = $("#input_img_size").val();
-                 var val2 = $("#input_img").val();
+    </form>
+    </br>
+    </br>
+    <div class="file_div">
+        <input type="file" class="btn btn-secondary input_img" id="input_img" name="img" accept="image/*">
+    </div>
 
-                 document.querySelectorAll(".input_img").forEach((inputElement) => {
+    <div class="webcam_div">
+        <button type="button" class="btn btn-primary btn-lg"> 📷 Webcam</button>
+    </div>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    <div class="Generate">
+        <button type="button" class="btn btn-primary btn-lg" onclick="get_result()">Generate</button>
+    </div>
+    </br>
+    </br>
+    </br>
+    </br>
+    </br>
+    <div class="results">
+        <div class='result_raw'>{{raw_image}}</div>
+        <div class='result'>{{encoded_img}}</div>
+    </div>
+    <script>
+        function get_result() {
+            var val1 = $("#encode_input").val();
+            var val3 = $("#input_img_size").val();
+            var val2 = $("#input_img").val();
 
-                    if (inputElement.files && inputElement.files[0]) {
-                        var reader = new FileReader();
-                        reader.onload = function (e) {
-                            val2 = e.target.result;
-                        
-                            $.ajax({
-                                url: "/calculate_result",
-                                type: "get",
-                                data: {'val1': val1, 'val2': val2, 'val3':val3},
-                                success: function(response) {
-                                    $(".result").html('<p>'+response.result.toString()+'</p>');
-                                    $(".result_raw").html('<img src="'+val2+'">');
+            document.querySelectorAll(".input_img").forEach((inputElement) => {
+
+                if (inputElement.files && inputElement.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        val2 = e.target.result;
+
+                        $.ajax({
+                            url: "/calculate_result",
+                            type: "get",
+                            data: { 'val1': val1, 'val2': val2, 'val3': val3 },
+                            success: function (response) {
+                                $(".result").html('<p>' + response.result.toString() + '</p>');
+                                $(".result_raw").html('<img src="' + val2 + '">');
                             },
-                            });
-
-                                        
-                        };
-                        reader.readAsDataURL(inputElement.files[0]);
-                    }
-                });
+                        });
 
 
+                    };
+                    reader.readAsDataURL(inputElement.files[0]);
                 }
-         </script>
+            });
 
-    </body>
+
+        }
+    </script>
+
+</body>
+
 </html>

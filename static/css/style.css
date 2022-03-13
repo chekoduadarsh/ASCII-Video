@@ -45,3 +45,8 @@ p {
     display: table;
     margin: 0 auto;
 }
+
+.form-key-label{
+    font-size: 24px;
+}
+
