@@ -15,11 +15,10 @@ def translate(value, leftMin, leftMax, rightMin, rightMax):
 
 
 
-def encode_frame(frame, size, density_encoder_string =""):
-    gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-    gray_image = cv2.resize(gray_image, size, interpolation= cv2.INTER_LINEAR)
-    
+def encode_frame(frame, size, density_encoder_string =""):    
     frame = cv2.resize(frame, size, interpolation= cv2.INTER_LINEAR)
+    gray_image = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+
 
     encode_str = ""
     h = gray_image.shape[0]
@@ -34,7 +33,8 @@ def encode_frame(frame, size, density_encoder_string =""):
         encode_str += "</br>"
     
     print(encode_str)
-    return encode_str
+    im_frame = Image.fromarray(frame)
+    return encode_str, im_frame
         
 
 def base64_to_numpy_image(base64_img):
