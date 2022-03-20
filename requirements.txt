@@ -1,9 +1,8 @@
 certifi==2021.10.8
 click 
 dominate==2.6.0
-Flask
-importlib-metadata 
-itsdangerous 
+Flask 
+Flask-Bootstrap==3.3.7.1
 Jinja2 
 MarkupSafe
 numpy 
