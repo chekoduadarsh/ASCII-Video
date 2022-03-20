@@ -1,8 +1,7 @@
 certifi==2021.10.8
 click 
 dominate==2.6.0
-Flask 
-Flask-Bootstrap==3.3.7.1
+Flask
 importlib-metadata 
 itsdangerous 
 Jinja2 
