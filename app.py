@@ -9,7 +9,6 @@ app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 
-image = cv2.imread('lenna.jpeg')
 
 @app.route('/')
 def root():
